@@ -1,0 +1,46 @@
+# Datasets and cache
+raw_datasets/
+kaggle_fire_dataset/
+dataset/
+enhanced_dataset/
+*.cache
+
+# Training outputs (keep only fire_model)
+runs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
+
+# Screenshots
+screenshot_*.jpg
+enhanced_screenshot_*.jpg
+detection_*.jpg
+
+# Model files (except fire_model/)
+*.pt
+!fire_model/best.pt
