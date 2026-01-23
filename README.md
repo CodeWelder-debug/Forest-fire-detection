@@ -1,171 +1,93 @@
-# 🔥 Forest Fire Detection System
+# Forest Fire Detection
 
-Real-time fire and person detection using YOLOv8 with enhanced fire detection accuracy (94.3% mAP50).
+A real-time fire and person detection system I built using YOLOv8. The model can detect fires with 94.3% accuracy and people with 92.8% accuracy.
 
-## 🎯 Features
+## What it does
 
-- **Enhanced Fire Detection**: 94.3% mAP50 accuracy
-- **Person Detection**: 92.8% mAP50 accuracy
-- **Real-time Webcam Inference**: ~123 FPS
-- **Easy to Use**: Simple Python scripts
-- **Pre-trained Model**: Ready to use out of the box
+This project uses a trained YOLOv8 model to detect fires and people in real-time through your webcam. When it spots a fire, it draws a red box around it. People get green boxes.
 
-## 📊 Model Performance
+I trained this on about 3,000 images - a mix of fire images from Kaggle and Roboflow, plus person detection data. The model is pretty lightweight (just 6.2 MB) and runs fast enough for real-time detection.
 
-| Metric | Value |
-|--------|-------|
-| Overall mAP50 | **93.56%** |
-| Fire mAP50 | **94.3%** |
-| Person mAP50 | 92.8% |
-| Precision | 92.63% |
-| Recall | 87.15% |
-| Model Size | 6.2 MB |
+## Getting started
 
-## 🚀 Quick Start
-
-### Installation
+Clone this repo and install the requirements:
 
 ```bash
-# Clone repository
 git clone https://github.com/CodeWelder-debug/Forest-fire-detection.git
-cd Forest-fire-detection
-
-# Install dependencies
-cd fire_model
+cd Forest-fire-detection/fire_model
 pip install -r requirements.txt
 ```
 
-### Run Detection
+Then run the detection:
 
 ```bash
-# Run webcam detection
 python webcam_detection.py
-
-# Specify camera index
-python webcam_detection.py --camera 0
-
-# Adjust confidence threshold
-python webcam_detection.py --conf 0.5
 ```
 
-## 📁 Project Structure
+Press 'q' to quit or 's' to save a screenshot.
 
-```
-Forest-fire-detection/
-├── fire_model/                    # 🔥 Main model folder
-│   ├── best.pt                    # Enhanced model weights (6.2 MB)
-│   ├── webcam_detection.py        # Real-time detection script
-│   ├── requirements.txt           # Dependencies
-│   └── README.md                  # Model documentation
-├── download_datasets.py           # Dataset download scripts
-├── prepare_yolo_dataset.py        # Dataset preparation
-├── train_model.py                 # Training scripts
-├── retrain_with_kaggle.py         # Enhanced training
-├── test_fire_detection.py         # Testing utilities
-└── README.md                      # This file
-```
+## How well does it work?
 
-## 🎓 Training Details
+After training on 2,863 images, here's what I got:
+- Fire detection: 94.3% mAP50
+- Person detection: 92.8% mAP50
+- Overall: 93.56% mAP50
 
-The model was trained on:
-- **2,863 training images** (1,244 fire + 1,770 person)
-- **716 validation images**
-- **Datasets**: Roboflow + Kaggle fire datasets
-- **Architecture**: YOLOv8n (Nano)
-- **Training**: 20 epochs fine-tuning
+The model runs at about 123 FPS, so it's smooth for real-time use.
 
-## 📖 Usage Examples
+## Using the model
 
-### Python API
+If you want to use it in your own code:
 
 ```python
 from ultralytics import YOLO
 
-# Load model
 model = YOLO('fire_model/best.pt')
 
-# Detect on image
-results = model('image.jpg')
+# On an image
+results = model('your_image.jpg')
 
-# Detect on video
-results = model('video.mp4')
-
-# Real-time webcam
-results = model(source=1, show=True)
+# On a video
+results = model('your_video.mp4')
 ```
 
-### Command Line
+## What's in the fire_model folder
+
+- `best.pt` - The trained model weights
+- `webcam_detection.py` - Script for real-time detection
+- `requirements.txt` - What you need to install
+- `README.md` - More details about the model
+
+## Options
+
+You can tweak the webcam script:
 
 ```bash
-# Detect on image
-yolo predict model=fire_model/best.pt source=image.jpg
+# Use a different camera
+python webcam_detection.py --camera 0
 
-# Detect on video
-yolo predict model=fire_model/best.pt source=video.mp4
-
-# Webcam
-yolo predict model=fire_model/best.pt source=1 show=True
+# Change confidence threshold
+python webcam_detection.py --conf 0.5
 ```
 
-## 🎯 Detection Classes
+## Requirements
 
-- **Fire** 🔥: Red bounding boxes
-- **Person** 👤: Green bounding boxes
+- Python 3.8 or newer
+- A webcam (for real-time detection)
+- GPU helps but isn't required
 
-## 🔧 Requirements
+## Training details
 
-- Python 3.8+
-- PyTorch
-- Ultralytics YOLOv8
-- OpenCV
-- Webcam (for real-time detection)
+I used YOLOv8n (the nano version) because it's fast and still accurate enough. Trained for 20 epochs on:
+- 1,244 fire images
+- 1,770 person images
 
-## 📝 Model Information
+The fire detection improved a lot after I added more fire images from Kaggle to the original Roboflow dataset.
 
-- **Input Size**: 640x640
-- **Parameters**: 3.2M
-- **GFLOPs**: 8.1
-- **Inference Speed**: ~8ms per image (~123 FPS)
+## License
 
-## 🎥 Demo
-
-Run the webcam detection script to see real-time fire and person detection:
-
-```bash
-cd fire_model
-python webcam_detection.py
-```
-
-**Controls:**
-- Press `q` to quit
-- Press `s` to save screenshot
-
-## 📚 Documentation
-
-For detailed documentation, training procedures, and dataset preparation:
-- See `fire_model/README.md` for model usage
-- See training scripts for custom training
-- See `TESTING_FIRE.md` for testing guidelines
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest features
-- Submit pull requests
-
-## 📄 License
-
-This project is provided for educational and research purposes.
-
-## 🙏 Acknowledgments
-
-- **YOLOv8** by Ultralytics
-- **Roboflow** for dataset hosting
-- **Kaggle** for fire dataset
+Feel free to use this for learning or research.
 
 ---
 
-**Built with ❤️ using YOLOv8**
-
-For questions or issues, please open an issue on GitHub.
+Built with YOLOv8 by Ultralytics
